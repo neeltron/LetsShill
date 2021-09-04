@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for,  flash, redirect
+from flask import Flask, render_template, url_for,  flash, redirect, request
 from forms import RegistrationForm, LoginForm
 from email_validator import validate_email, EmailNotValidError
 
@@ -24,9 +24,11 @@ posts = [
 def home():
   return render_template("home.html", posts=posts)
 
-@app.route("/signin")
+@app.route("/signin", methods=['GET', 'POST'])
 def signin():
-  
+  form = LoginForm(request.form)
+  if request.method == "POST" and form.validate_on_submit:
+    flash('You have successfully logged in.', "success")
   return render_template("signin.html")
 
 

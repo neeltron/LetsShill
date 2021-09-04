@@ -9,7 +9,7 @@ class RegistrationForm(FlaskForm): #DataRequired = can't be null
   confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
   submit = SubmitField('Sign Up')
 
-class LoginForm:
+class LoginForm(FlaskForm):
   username = StringField("Username", validators = [DataRequired(), validators.Length(min=5, max = 20)])
   password = StringField("Password", validators = [DataRequired()])
   
