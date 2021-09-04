@@ -50,7 +50,7 @@ def signup():
   form = RegistrationForm(request.form)
   username = form.username.data
   password = form.password.data
-  email = form.password.data
+  email = form.email.data
   if form.validate_on_submit and request.method == "POST":
     row = session.execute("insert into ls.accounts(username, email, password) values ('"+username+"', '"+email+"', '"+password+"')").one()
     print(row)
