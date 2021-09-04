@@ -12,7 +12,7 @@ auth_provider = PlainTextAuthProvider(client_id, client_secret)
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
 session = cluster.connect()
 
-row = session.execute("select * from ls.accounts")
+row = session.execute("select * from ls.posts")
 for r in row:
   print(r)
 

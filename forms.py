@@ -12,4 +12,7 @@ class RegistrationForm(FlaskForm): #DataRequired = can't be null
 class LoginForm(FlaskForm):
   username = StringField("Username", validators = [DataRequired(), validators.Length(min=5, max = 20)])
   password = StringField("Password", validators = [DataRequired()])
+
+class Post(FlaskForm):
+  postf = StringField("postf", validators = [DataRequired()])
   

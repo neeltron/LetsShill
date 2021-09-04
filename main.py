@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, flash, redirect, request, session
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, Post
 from email_validator import validate_email, EmailNotValidError
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
@@ -33,8 +33,17 @@ posts = [
     },
 ]
 
-@app.route("/")
+@app.route("/", methods = ['GET', 'POST'])
 def home():
+  form = Post(request.form)
+  text = form.postf.data
+  if 'username' in session:
+    username = session['username']
+    print(username)
+    if request.method == "POST" and form.validate_on_submit:
+      row = session2.execute("insert into ls.posts (username, post, url) values ('"+username+"', '"+text+"', 'https://google.com')")
+      if row:
+        flash("posted!", "success")
   return render_template("home.html", posts=posts)
 
 @app.route("/signin", methods=['GET', 'POST'])

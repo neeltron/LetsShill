@@ -1,5 +1,10 @@
-{% extends "layout.html" %} 
+{% extends "layout.html" %}
+
 {% block content %}
+<form method="post">
+<input type = "text" name = "postf" class="form-control">
+<button name = "submit">Submit</button>
+</form>
   {% for post in posts %}
     <article class="media content-section">
       <div class="media-body">
