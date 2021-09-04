@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for,  flash, redirect, request
+from flask import Flask, render_template, url_for, flash, redirect, request
 from forms import RegistrationForm, LoginForm
 from email_validator import validate_email, EmailNotValidError
 from cassandra.cluster import Cluster
@@ -40,8 +40,20 @@ def home():
 @app.route("/signin", methods=['GET', 'POST'])
 def signin():
   form = LoginForm(request.form)
+  username = form.username.data
+  password = form.password.data
+  print(username)
+  print(password)
   if request.method == "POST" and form.validate_on_submit:
-    flash('You have successfully logged in.', "success")
+    row = session.execute("select username, password, email from ls.accounts where username = '"+username+"' and password ='"+password+"' ALLOW FILTERING;").one()
+    print(row)
+    email = row[2]
+    print(email)
+    if row:
+      flash('You have successfully logged in.', "success")
+      session['logged_in'] = True
+      session['email'] = email
+      session['username'] = username
   return render_template("signin.html")
 
 
@@ -52,7 +64,7 @@ def signup():
   password = form.password.data
   email = form.email.data
   if form.validate_on_submit and request.method == "POST":
-    row = session.execute("insert into ls.accounts(username, email, password) values ('"+username+"', '"+email+"', '"+password+"')").one()
+    row = session.execute("insert into ls.accounts(username, email, password) values ('"+username+"', '"+email+"', '"+password+"')")
     print(row)
     flash('Your account is created successfully!', 'success')
     # return redirect(url_for('home'))
