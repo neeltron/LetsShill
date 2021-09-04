@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, flash, redirect, request
+from flask import Flask, render_template, url_for, flash, redirect, request, session
 from forms import RegistrationForm, LoginForm
 from email_validator import validate_email, EmailNotValidError
 from cassandra.cluster import Cluster
@@ -13,7 +13,7 @@ cloud_config= {
 }
 auth_provider = PlainTextAuthProvider(client_id, client_secret)
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
-session = cluster.connect()
+session2 = cluster.connect()
 
 app = Flask(__name__,template_folder='templates', static_folder='static')
 
@@ -45,7 +45,7 @@ def signin():
   print(username)
   print(password)
   if request.method == "POST" and form.validate_on_submit:
-    row = session.execute("select username, password, email from ls.accounts where username = '"+username+"' and password ='"+password+"' ALLOW FILTERING;").one()
+    row = session2.execute("select username, password, email from ls.accounts where username = '"+username+"' and password ='"+password+"' ALLOW FILTERING;").one()
     print(row)
     email = row[2]
     print(email)
@@ -64,7 +64,7 @@ def signup():
   password = form.password.data
   email = form.email.data
   if form.validate_on_submit and request.method == "POST":
-    row = session.execute("insert into ls.accounts(username, email, password) values ('"+username+"', '"+email+"', '"+password+"')")
+    row = session2.execute("insert into ls.accounts(username, email, password) values ('"+username+"', '"+email+"', '"+password+"')")
     print(row)
     flash('Your account is created successfully!', 'success')
     # return redirect(url_for('home'))
