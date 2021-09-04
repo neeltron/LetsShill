@@ -48,8 +48,11 @@ def signin():
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
   form = RegistrationForm(request.form)
+  username = form.username.data
+  password = form.password.data
+  email = form.password.data
   if form.validate_on_submit and request.method == "POST":
-    row = session.execute("insert into ls.accounts(username, email, password) values ('test', 'test', 'test')").one()
+    row = session.execute("insert into ls.accounts(username, email, password) values ('"+username+"', '"+email+"', '"+password+"')").one()
     print(row)
     flash('Your account is created successfully!', 'success')
     # return redirect(url_for('home'))
