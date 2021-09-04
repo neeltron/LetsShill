@@ -1,6 +1,19 @@
 from flask import Flask, render_template, url_for,  flash, redirect, request
 from forms import RegistrationForm, LoginForm
 from email_validator import validate_email, EmailNotValidError
+from cassandra.cluster import Cluster
+from cassandra.auth import PlainTextAuthProvider
+import os
+
+client_id = os.environ['client_id']
+client_secret = os.environ['client_secret']
+
+cloud_config= {
+  'secure_connect_bundle': 'secure-connect-letsshill.zip'
+}
+auth_provider = PlainTextAuthProvider(client_id, client_secret)
+cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
+session = cluster.connect()
 
 app = Flask(__name__,template_folder='templates', static_folder='static')
 
@@ -36,6 +49,7 @@ def signin():
 def signup():
   form = RegistrationForm(request.form)
   if form.validate_on_submit and request.method == "POST":
+    row = session.execute("select release_version from system.local").one()
     flash('Your account is created successfully!', 'success')
     # return redirect(url_for('home'))
   return render_template("signup.html", form = form)
