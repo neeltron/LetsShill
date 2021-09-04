@@ -1,9 +1,10 @@
 from flask import Flask, render_template, url_for,  flash, redirect
-# from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm
 from email_validator import validate_email, EmailNotValidError
 
 app = Flask(__name__,template_folder='templates', static_folder='static')
 
+app.config['SECRET_KEY'] = "8b6dd776fdab11e0a2e60f8b0f284bc3"
 posts = [
     {
         'author': 'James Smith',
@@ -25,12 +26,17 @@ def home():
 
 @app.route("/signin")
 def signin():
+  
   return render_template("signin.html")
 
 
-@app.route("/signup")
+@app.route("/signup", methods=['GET', 'POST'])
 def signup():
-  return render_template("signup.html")
+  form = RegistrationForm()
+  if form.validate_on_submit():
+    flash(f'Your account is created successfully!', 'success')
+    return redirect(url_for('home'))
+  return render_template("signup.html", title="Register", form=form)
 
 
 if __name__ == '__main__':
