@@ -49,7 +49,8 @@ def signin():
 def signup():
   form = RegistrationForm(request.form)
   if form.validate_on_submit and request.method == "POST":
-    row = session.execute("select release_version from system.local").one()
+    row = session.execute("insert into ls.accounts(username, email, password) values ('test', 'test', 'test')").one()
+    print(row)
     flash('Your account is created successfully!', 'success')
     # return redirect(url_for('home'))
   return render_template("signup.html", form = form)

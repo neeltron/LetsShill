@@ -12,8 +12,8 @@ auth_provider = PlainTextAuthProvider(client_id, client_secret)
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
 session = cluster.connect()
 
-row = session.execute("select release_version from system.local").one()
+row = session.execute("select * from ls.accounts").one()
 if row:
-    print(row[0])
+    print(row)
 else:
     print("An error occurred.")
