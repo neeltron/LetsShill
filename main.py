@@ -34,11 +34,11 @@ def signin():
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
-  form = RegistrationForm()
-  if form.validate_on_submit():
-    flash(f'Your account is created successfully!', 'success')
-    return redirect(url_for('home'))
-  return render_template("signup.html", title="Register", form=form)
+  form = RegistrationForm(request.form)
+  if form.validate_on_submit and request.method == "POST":
+    flash('Your account is created successfully!', 'success')
+    # return redirect(url_for('home'))
+  return render_template("signup.html", form = form)
 
 
 if __name__ == '__main__':
