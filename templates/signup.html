@@ -1,103 +1,50 @@
-{% extends "layout.html" %} 
-{% block content %}
-<div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<h3>Sign Up</h3>
-			</div>
-			<div class="card-body">
-				<form method="POST">
-         
-					<!--Enter username-->
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i>
-              {{ form.username.label(class="form-control-label") }} <!-- will put icon next to the box-->
-                    {% if form.username.errors %}
-                        {{ form.username(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.username.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.username(class="form-control form-control-lg") }}
-                    {% endif %}</span>
-						</div>
-						<!-- <input type="text" class="form-control" placeholder="username"> -->
-            
-					</div>
-          <div class="input-group form-group"> 
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i>
-              {{ form.email.label(class="form-control-label") }}
-                    {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-lg") }}
-                    {% endif %}</span>
-						</div>
-									
-					</div>
-          <!--Enter password-->
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i>
-               {{ form.password.label(class="form-control-label") }}
-                    {% if form.password.errors %}
-                        {{ form.password(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.password.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.password(class="form-control form-control-lg") }}
-                    {% endif %}</span>
-						</div>
-						<!-- <input type="password" class="form-control" placeholder="password"> -->
-					</div>
-          <div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i>
-               {{ form.confirm_password.label(class="form-control-label") }}
-                    {% if form.confirm_password.errors %}
-                        {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.confirm_password.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.confirm_password(class="form-control form-control-lg") }}
-                    {% endif %}</span>
-						</div>
-						<!-- <input type="confirm_password" class="form-control" placeholder="Confirm Password"> -->
-					</div>
-					<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
-					</div>
-					<div class="form-group">
-						<!-- <input type="submit" value="Login" class="btn float-right login_btn"> -->
-            {{ form.submit(class="btn btn-outline-info") }}
-					</div>
-				</form>
-			</div>
-			<div class="card-footer">
-				<div class="d-flex justify-content-center links">
-					Have an account?<a href="{{ url_for('signin')}}">Sign In</a>
-				</div>
-				<div class="d-flex justify-content-center">
-					<a href="#">Forgot your password?</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-{% endblock content %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LetsShill</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="static/loader.css">
+        <link rel = "stylesheet" href ="static/form.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="static/nav.css">
+    </head>
+
+<body>
+
+    <!-- NAVBAR -->
+        <header id="navigation">
+            <div id="logo">
+                <a href="index.html"><img src="static/logo.png"></a>
+            </div>
+            <div id="right_most">
+                <button id = "signup"><a href="">Sign Up</a></button>
+                <button id = "login"><a href="signin">Login</a></button>
+            </div>
+        </header>
+
+        <div class="container">
+          <form autocomplete="off" id="form" method = "post">
+            <h1 id="message">Get Started</h1><small id="smallMessage"> </small>
+            <div class="field">
+              <input type="email" name="email" placeholder="Email" id="email" autocomplete="off" class="form-control" />
+              <label for="email">Email</label>
+            </div>
+            <div class="field">
+              <input type="text" name="username" placeholder="Username" id="username" autocomplete="off" class="form-control" />
+              <label for="username">Username</label>
+            </div>
+            <div class="field">
+              <input type="password" name="password" placeholder="Password" id="password" autocomplete="new-password" class="form-control"/>
+              <label for="password">Password</label>
+            </div>
+            <input type="submit" value="Create an Account" id="submit">
+            <p>By signing up, I agree to to the Terms of Service and Privacy Policy</p>
+          </form>
+        </div>
+
+        <script type="text/javascript" src="js/signup.js"></script>
+    </body>
+</html>
