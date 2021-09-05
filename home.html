@@ -1,4 +1,4 @@
-
+{% block content %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,35 +23,24 @@
             </div>
         </header>
     <body>
+      <form method="post">
+      <input type = "text" name = "postf" class="form-control">
+      <button name = "submit">Submit</button>
+      </form>
        
         <div class="card__container">
+          {% for post in posts %}
             <div class="card">
             <div class="card__content">
-                <h3 class="card__header">Card 1</h3>
+                <h3 class="card__header">Post</h3>
                 <p class="card__date">September 4th, 2021</p>
-                <p class="card__author">James Smith</p>
-                <p class="card__info">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                <button class="card__button">Read more</button>
+                <p class="card__author">{{ post.author }}</p>
+                <p class="card__info">{{ post.content }}</p>
+                <button class="card__button">{{ post.title }}</button>
             </div>
             </div>
-            <div class="card">
-            <div class="card__content">
-                <h3 class="card__header">Card 2</h3>
-                <p class="card__date">September 4th, 2021</p>
-                <p class="card__author">James Smith</p>
-                <p class="card__info">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                <button class="card__button">Read more</button>
-            </div>
-            </div>
-            <div class="card">
-            <div class="card__content">
-                <h3 class="card__header">Card 3</h3>
-                <p class="card__date">September 4th, 2021</p>
-                <p class="card__author">James Smith</p>
-                <p class="card__info">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                <button class="card__button">Read more</button>
-            </div>
-            </div>
+            {% endfor %}
         </div>
      
     </body>
+    {% endblock content %}
