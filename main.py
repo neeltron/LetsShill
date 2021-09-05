@@ -22,14 +22,12 @@ posts = [
     {
         'author': 'James Smith',
         'title': 'My Hackathon Journey',
-        'content': 'I got to know about Major League Hacking when I was a first-year student',
-        'date_posted': 'September 1st, 2021'
+        'content': 'I got to know about Major League Hacking when I was a first-year student'
     },
     {
         'author': 'Jane Doe',
         'title': 'How I Ace My Interview',
-        'content': 'You have to make sure to make an eye contact to the employees.',
-        'date_posted': 'September 2nd, 2021'
+        'content': 'You have to make sure to make an eye contact to the employees.'
     },
 ]
 
@@ -44,6 +42,16 @@ def home():
       row = session2.execute("insert into ls.posts (username, post, url) values ('"+username+"', '"+text+"', 'https://google.com')")
       if row:
         flash("posted!", "success")
+      
+    rows = session2.execute("select * from ls.posts;") 
+    for r in rows:
+      post = {
+        'author': r[0],
+        'content': r[1],
+        'title': r[2]
+      }
+    posts.append(post)
+    print(post)
   return render_template("home.html", posts=posts)
 
 @app.route("/signin", methods=['GET', 'POST'])
