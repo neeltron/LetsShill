@@ -87,6 +87,10 @@ def signup():
     # return redirect(url_for('home'))
   return render_template("signup.html", form = form)
 
+@app.route("/intro")
+def intro():
+  return render_template("index.html")
+
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', debug=True, port=5000)
