@@ -14,7 +14,7 @@
     <!-- NAVBAR -->
         <header id="navigation">
             <div id="logo">
-                <a href="index.html"><img src="static/logo.png"></a>
+                <a href="{{ url_for('home')}}"><img src="static/logo.png"></a>
             </div>
             <div id="right_most">
                 <button id = "signup"><a href="signup">Sign Up</a></button>
@@ -34,7 +34,7 @@
               <input type="password" name="password" placeholder="Enter Password" id="password" autocomplete="new-password" class="form-control" />
               <label for="password">Password</label>
             </div>
-            <small id="textS">Not Registered? Sign up <a href="signup.html">here</a>.</small>
+            <small id="textS">Not Registered? Sign up <a href="signup">here</a>.</small>
             <div class="field">
             <input type="submit" value="Login" id="submit">
           </form>

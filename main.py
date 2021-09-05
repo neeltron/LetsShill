@@ -20,18 +20,23 @@ app = Flask(__name__,template_folder='templates', static_folder='static')
 app.config['SECRET_KEY'] = "8b6dd776fdab11e0a2e60f8b0f284bc3"
 posts = [
     {
-        'author': 'James Smith',
-        'title': 'My Hackathon Journey',
-        'content': 'I got to know about Major League Hacking when I was a first-year student'
+        'author': 'Bailey Luu',
+        'title': 'Online Whiteboard',
+        'content': 'How can I add function to change the color of the brush? Here is my project https://tinyurl.com/3zv85bxm'
     },
     {
-        'author': 'Jane Doe',
-        'title': 'How I Ace My Interview',
-        'content': 'You have to make sure to make an eye contact to the employees.'
+        'author': 'Bailey Luu',
+        'title': 'Safe Dsumption',
+        'content': 'How can I implement OpenUV Index API and the time countdown? https://tinyurl.com/6z55tdr6'
+    },
+    {
+        'author': 'Bailey Luu',
+        'title': 'Burning Antimony',
+        'content': 'I built a decryption game. Try it out! I would love to have feedbacks! https://tinyurl.com/jbba2a68'
     },
 ]
 
-@app.route("/", methods = ['GET', 'POST'])
+@app.route("/home", methods = ['GET', 'POST'])
 def home():
   form = Post(request.form)
   text = form.postf.data
@@ -71,6 +76,7 @@ def signin():
       session['logged_in'] = True
       session['email'] = email
       session['username'] = username
+      return redirect(url_for('home'))
   return render_template("signin.html")
 
 
@@ -87,7 +93,7 @@ def signup():
     # return redirect(url_for('home'))
   return render_template("signup.html", form = form)
 
-@app.route("/intro")
+@app.route("/")
 def intro():
   return render_template("index.html")
 
